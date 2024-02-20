@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
-import { variantsBase } from '../styles/variants'
+import { variantsRoot } from '../styles/variants'
 
-const { base, container, content, title, action } = variantsBase()
+const { base, container, content, title, action } = variantsRoot()
 
 export function Root() {
   const [theme, setTheme] = useState(localStorage.theme === 'light')
