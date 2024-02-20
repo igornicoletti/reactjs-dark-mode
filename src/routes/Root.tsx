@@ -1,32 +1,29 @@
 import { useEffect, useState } from 'react'
+import { variantsBase } from '../styles/variants'
+
+const { base, container, content, title, action } = variantsBase()
 
 export function Root() {
-  const [darkMode, setDarkMode] = useState(localStorage.darkMode === 'light')
+  const [theme, setTheme] = useState(localStorage.theme === 'light')
 
   useEffect(() => {
-    const prevTheme = darkMode ? 'dark' : 'light'
+    const prevTheme = theme ? 'dark' : 'light'
     document.documentElement.classList.remove(prevTheme)
 
-    const nextTheme = darkMode ? 'light' : 'dark'
+    const nextTheme = theme ? 'light' : 'dark'
     document.documentElement.classList.add(nextTheme)
 
-    localStorage.setItem('darkMode', nextTheme)
-  }, [darkMode])
+    localStorage.setItem('theme', nextTheme)
+  }, [theme])
 
-  const toggleDarkMode = () => setDarkMode(prevMode => !prevMode)
+  const handleThemeSwitcher = () => setTheme(prevMode => !prevMode)
 
   return (
-    <div className='bg-light text-dark dark:bg-dark dark:text-light'>
-      <div className='relative h-full min-h-screen w-full grid content-center'>
-        <div className='w-full max-w-screen-2xl mx-auto px-6'>
-          <div className='flex flex-col items-center text-center gap-8 py-16'>
-            <h1 className='tracking-wide lg:text-7xl'>
-              {darkMode ? 'Light Mode' : 'Dark Mode'}
-            </h1>
-            <button onClick={toggleDarkMode}>
-              Click to change theme
-            </button>
-          </div>
+    <div className={base()}>
+      <div className={container()}>
+        <div className={content()}>
+          <h1 className={title()}>{theme ? 'Light Mode' : 'Dark Mode'}</h1>
+          <button className={action()} onClick={handleThemeSwitcher}>Theme Switcher</button>
         </div>
       </div>
     </div>
